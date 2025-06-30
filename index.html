@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>A-CLASS 중1 정기 TEST (20문제)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    .question-title {
+      font-weight: bold;
+    }
+    .options label {
+      display: block;
+      margin-left: 20px;
+    }
+    #result {
+      font-weight: bold;
+      margin-top: 20px;
+      color: green;
+    }
+    #gradingSection {
+      margin-top: 30px;
+    }
+    #teacherLogin {
+      background: #f9f9f9;
+      padding: 15px;
+      border: 1px solid #ccc;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>영어 객관식 시험 (5지선다)</h1>
+
+  <form id="quizForm">
+    <div id="questionsContainer"></div>
+  </form>
+
+  <!-- 비밀번호 입력 -->
+  <div id="teacherLogin">
+    <p><strong>선생님 전용</strong>: 비밀번호를 입력하세요</p>
+    <input type="password" id="passwordInput" placeholder="비밀번호 입력">
+    <button onclick="unlockGrading()">확인</button>
+  </div>
+
+  <!-- 채점 버튼 (처음에는 숨김) -->
+  <div id="gradingSection" style="display:none;">
+    <button type="button" onclick="checkAnswers()">채점</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const questions = [
+      { q: "1. Is your brother tall?", options: ["Yes, he was", "No, she won't", "Yes, he did", "No, he isn't", "Yes, They are."], answer: "4" },
+      { q: "2. 다음 중 어법상 틀린 것은?", options: ["Where is Jack?", "Watch your step.", "Fill in the blanks.","Do careful of the fire.","Do they like spaghetti?"], answer: "3" },
+      { q: "3. 다음 중 명령문으로 바르게 전환한 것은?", options: ["You are on time > Are on time.", "You keep studying. > Keeping studying", "", "tough", "strong"], answer: "1" },
+      { q: "4. Which one is THE MOST BEUATIFUL?", options: ["snow white", "Cinderella", "money", "flower", "Sera"], answer: "5" },
+      { q: "5. Choose the synonym of 'big'.", options: ["small", "tiny", "huge", "narrow", "short"], answer: "3" },
+      { q: "6. Which is an animal?", options: ["Car", "Cat", "Chair", "Cup", "Cactus"], answer: "2" },
+      { q: "7. What color is the sky on a clear day?", options: ["Red", "Yellow", "Green", "Blue", "Gray"], answer: "4" },
+      { q: "8. What comes after Monday?", options: ["Friday", "Sunday", "Tuesday", "Saturday", "Thursday"], answer: "3" },
+      { q: "9. What do you do with your eyes?", options: ["Eat", "See", "Hear", "Touch", "Smell"], answer: "2" },
+      { q: "10. What does a bird do?", options: ["Walk", "Cook", "Fly", "Paint", "Drive"], answer: "3" },
+      { q: "11. What is 2 + 2?", options: ["2", "3", "4", "5", "6"], answer: "3" },
+      { q: "12. Opposite of 'hot'?", options: ["Cold", "Warm", "Cool", "Freezing", "Burning"], answer: "1" },
+      { q: "13. What is a synonym of 'happy'?", options: ["Sad", "Angry", "Joyful", "Tired", "Lonely"], answer: "3" },
+      { q: "14. Which is a verb?", options: ["Red", "Fast", "Run", "Chair", "Slow"], answer: "3" },
+      { q: "15. What do bees make?", options: ["Milk", "Butter", "Honey", "Jam", "Oil"], answer: "3" },
+      { q: "16. What is the plural of 'child'?", options: ["Childs", "Childen", "Children", "Childer", "Childres"], answer: "3" },
+      { q: "17. Which is a day of the week?", options: ["April", "June", "Tuesday", "Year", "Season"], answer: "3" },
+      { q: "18. What is a synonym of 'fast'?", options: ["Slow", "Quick", "Late", "Still", "Stop"], answer: "2" },
+      { q: "19. Which is an emotion?", options: ["Table", "Happy", "Car", "Spoon", "Window"], answer: "2" },
+      { q: "20. What is the first letter of the alphabet?", options: ["Z", "Y", "C", "B", "A"], answer: "5" }
+    ];
+
+    const teacherPassword = "1234"; // 비밀번호 변경 가능
+
+    // 문제 출력
+    window.onload = function() {
+      const container = document.getElementById("questionsContainer");
+      questions.forEach((item, index) => {
+        let optionsHTML = '';
+        for (let i = 0; i < 5; i++) {
+          optionsHTML += `
+            <label>
+              <input type="radio" name="q${index + 1}" value="${i + 1}"> ${i + 1}. ${item.options[i]}
+            </label>
+          `;
+        }
+        container.innerHTML += `
+          <div class="question">
+            <div class="question-title">${item.q}</div>
+            <div class="options">${optionsHTML}</div>
+          </div>
+        `;
+      });
+    };
+
+    // 채점 버튼 표시
+    function unlockGrading() {
+      const input = document.getElementById("passwordInput").value;
+      if (input === teacherPassword) {
+        document.getElementById("gradingSection").style.display = "block";
+        document.getElementById("teacherLogin").style.display = "none";
+      } else {
+        alert("비밀번호가 틀렸습니다.");
+      }
+    }
+
+    // 채점 기능
+    function checkAnswers() {
+      let score = 0;
+
+      questions.forE
