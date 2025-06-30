@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>A-CLASS 중1 정기 TEST (20문제)</title>
+  <meta charset="UTF-8" />
+  <title>영어 객관식 시험 (5지선다)</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -47,7 +47,7 @@
   <!-- 비밀번호 입력 -->
   <div id="teacherLogin">
     <p><strong>선생님 전용</strong>: 비밀번호를 입력하세요</p>
-    <input type="password" id="passwordInput" placeholder="비밀번호 입력">
+    <input type="password" id="passwordInput" placeholder="비밀번호 입력" />
     <button onclick="unlockGrading()">확인</button>
   </div>
 
@@ -59,10 +59,10 @@
 
   <script>
     const questions = [
-      { q: "1. Is your brother tall?", options: ["Yes, he was", "No, she won't", "Yes, he did", "No, he isn't", "Yes, They are."], answer: "4" },
-      { q: "2. 다음 중 어법상 틀린 것은?", options: ["Where is Jack?", "Watch your step.", "Fill in the blanks.","Do careful of the fire.","Do they like spaghetti?"], answer: "3" },
-      { q: "3. 다음 중 명령문으로 바르게 전환한 것은?", options: ["You are on time > Are on time.", "You keep studying. > Keeping studying", "", "tough", "strong"], answer: "1" },
-      { q: "4. Which one is THE MOST BEUATIFUL?", options: ["snow white", "Cinderella", "money", "flower", "Sera"], answer: "5" },
+      { q: "1. What is the capital of France?", options: ["Berlin", "Madrid", "London", "Rome", "Paris"], answer: "5" },
+      { q: "2. What is the past tense of go?", options: ["goed", "going", "went", "goes", "gone"], answer: "3" },
+      { q: "3. What is the opposite of 'easy'?", options: ["hard", "difficult", "long", "tough", "strong"], answer: "1" },
+      { q: "4. Which one is a fruit?", options: ["Carrot", "Potato", "Celery", "Tomato", "Banana"], answer: "5" },
       { q: "5. Choose the synonym of 'big'.", options: ["small", "tiny", "huge", "narrow", "short"], answer: "3" },
       { q: "6. Which is an animal?", options: ["Car", "Cat", "Chair", "Cup", "Cactus"], answer: "2" },
       { q: "7. What color is the sky on a clear day?", options: ["Red", "Yellow", "Green", "Blue", "Gray"], answer: "4" },
@@ -81,10 +81,9 @@
       { q: "20. What is the first letter of the alphabet?", options: ["Z", "Y", "C", "B", "A"], answer: "5" }
     ];
 
-    const teacherPassword = "1234"; // 비밀번호 변경 가능
+    const teacherPassword = "1234";
 
-    // 문제 출력
-    window.onload = function() {
+    document.addEventListener('DOMContentLoaded', () => {
       const container = document.getElementById("questionsContainer");
       questions.forEach((item, index) => {
         let optionsHTML = '';
@@ -102,9 +101,8 @@
           </div>
         `;
       });
-    };
+    });
 
-    // 채점 버튼 표시
     function unlockGrading() {
       const input = document.getElementById("passwordInput").value;
       if (input === teacherPassword) {
@@ -115,8 +113,19 @@
       }
     }
 
-    // 채점 기능
     function checkAnswers() {
       let score = 0;
 
-      questions.forE
+      questions.forEach((item, index) => {
+        const selected = document.querySelector(`input[name="q${index + 1}"]:checked`);
+        if (selected && selected.value === item.answer) {
+          score++;
+        }
+      });
+
+      document.getElementById("result").innerText = `총점: ${score} / ${questions.length}`;
+    }
+  </script>
+
+</body>
+</html>
